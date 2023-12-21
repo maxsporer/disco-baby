@@ -6,7 +6,9 @@ declare global {
 		// interface Locals {}
 		// interface PageData {}
 		// interface Platform {}
+		declare module 'aws4';
 	}
 }
+
 
 export {};
