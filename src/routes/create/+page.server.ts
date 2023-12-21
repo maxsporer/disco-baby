@@ -1,7 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 import AWS from 'aws-sdk'
-import { AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY } from '$env/static/private';
+import { AWS_PUBLIC_ACCESS_KEY, AWS_SECRET_ACCESS_KEY } from '$env/static/private';
 
 export function load({ cookies }) {
 	if (!cookies.get('allowed')) {
@@ -41,7 +41,7 @@ async function searchDeezerTracks(q: string) {
 async function searchSpotifyTracks(q: string, type: string = 'track', limit: number = 5) {
 	// Configure AWS SDK with your credentials and region
 	AWS.config.update({
-		accessKeyId: AWS_ACCESS_KEY,
+		accessKeyId: AWS_PUBLIC_ACCESS_KEY,
 		secretAccessKey: AWS_SECRET_ACCESS_KEY,
 		region: 'us-east-2',
 	});
