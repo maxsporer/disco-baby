@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
   import '../../app.css';
+  import { Search, Button } from 'flowbite-svelte';
+  import { SearchOutline } from 'flowbite-svelte-icons';
 
 	export let form: ActionData;
 
@@ -20,11 +22,13 @@
   }
 </script>
 
-<div class='bg-slate-300 w-full h-full p-8'>
-  <div class="pb-4">
-    <form method="POST" action="?/search">
-      <input name="query" type="query">
-      <button formaction="?/search">search</button>
+
+<div class='bg-slate-300 w-full h-full p-8 min-h-screen'>
+  <div class="pb-4 ml-[5$] mr-[5%] lg:mr-[80%]">
+    <form method="POST" action="?/search" class="rounded-3xl flex bg-white p-4">
+        <SearchOutline class="h-5 w-4 pt-1 pl-0.5"/>
+      <input name="query" type="query" placeholder=" Search for a song or artist" class="w-full">
+      <!-- <button formaction="?/search">Go!</button> -->
     </form>
   </div>
 
