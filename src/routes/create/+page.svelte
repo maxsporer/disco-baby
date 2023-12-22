@@ -6,7 +6,18 @@
 
   let selection: any;
 
-  $: console.log(selection);
+  async function create(selection: any) {
+    const response = await fetch('/api/create', {
+      method: 'POST',
+			body: JSON.stringify({ selection }),
+			headers: {
+				'content-type': 'application/json'
+			}
+    })
+
+    const id = await response.json();
+    console.log(id);
+  }
 </script>
 
 <div class='bg-slate-300 w-full h-full p-8'>
@@ -25,7 +36,7 @@
         {selection.title}
       </div>
     </div>
-    <button class="m-4">
+    <button class="m-4" on:click={create(selection)}>
       submit
     </button>
   </div>

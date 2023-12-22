@@ -23,7 +23,7 @@ export const actions = {
 		} catch (error) {
 			console.error('Error:', error)
 		}
-	}
+	},
 };
 
 async function searchDeezerTracks(q: string) {
@@ -69,6 +69,6 @@ async function searchSpotifyTracks(q: string, type: string = 'track', limit: num
     return JSON.parse(data.Payload);
   } catch (error) {
     console.error('Error invoking Lambda function:', error);
-    throw error; // You can handle the error as needed
+    throw error;
   }
 }
