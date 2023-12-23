@@ -1,8 +1,9 @@
 <script lang="ts">
-import type { ActionData } from './$types';
+  import type { ActionData } from './$types';
   import { Search, Button } from 'flowbite-svelte';
-	export let form: ActionData;
+  import Icon from '@iconify/svelte';
 
+  export let form: ActionData;
   let selection: any;
 
   async function create(selection: any) {
@@ -15,7 +16,6 @@ import type { ActionData } from './$types';
     })
 
     const id = await response.json();
-    console.log(id);
   }
 </script>
 
@@ -44,10 +44,20 @@ import type { ActionData } from './$types';
   
   {#if form?.data}
     {#each form.data as track, i}
-    <button class='flex m-4' on:click={() => selection = track}>
-      <img src={track.album.cover} alt=''/>
-      <div class='pl-4 flex text-center'>
-        {track.title}
+    <button class='flex m-4 items-center' on:click={() => selection = track}>
+      <img class='w-14 h-14' src={track.album.cover} alt=''/>
+      <div class='pl-4 flex flex-col text-left text-2xl justify-center'>
+        <div>
+          {track.title}
+        </div>
+        <div class='text-lg text-gray-400 flex'>
+          {#if track.explicit_lyrics}
+            <Icon icon="material-symbols:explicit" class='h-7 mr-1' />
+          {/if}
+          <div> 
+            {track.artist.name}
+          </div>
+        </div>
       </div>
     </button>
     {/each}
