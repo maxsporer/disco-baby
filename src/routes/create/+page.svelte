@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { ActionData } from './$types';
-  import '../../app.css';
-
+import type { ActionData } from './$types';
+  import { Search, Button } from 'flowbite-svelte';
 	export let form: ActionData;
 
   let selection: any;
@@ -20,11 +19,12 @@
   }
 </script>
 
-<div class='bg-slate-300 w-full h-full p-8'>
+<div class='w-full h-full p-8'>
   <div class="pb-4">
-    <form method="POST" action="?/search">
-      <input name="query" type="query">
-      <button formaction="?/search">search</button>
+    <form method="POST" action="?/search" class="flex">
+      <Search size="lg" name="query" type="query" class="py-4">
+        <Button class="!p-2.5 mr-2" type="submit">Search</Button>
+      </Search>
     </form>
   </div>
 
