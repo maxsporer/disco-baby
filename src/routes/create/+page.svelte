@@ -36,7 +36,7 @@ import type { ActionData } from './$types';
         {selection.title}
       </div>
     </div>
-    <button class="m-4" on:click={create(selection)}>
+    <button class="m-4" on:click={() => create(selection)}>
       submit
     </button>
   </div>

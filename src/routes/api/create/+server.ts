@@ -1,4 +1,3 @@
-import { error } from '@sveltejs/kit';
 import AWS from 'aws-sdk'
 import { AWS_PUBLIC_ACCESS_KEY, AWS_SECRET_ACCESS_KEY } from '$env/static/private';
 import {v4 as uuidv4} from 'uuid';
@@ -18,9 +17,10 @@ export async function POST({ request }) {
   // Create an instance of the DynamoDB client
 	const dynamodb = new AWS.DynamoDB();
 
-	let myuuid = uuidv4();
+	const myuuid = uuidv4();
 
-	var params = {
+	const params = {
+		TableName: "challenges",
 		Item: {
 			'id': {'S': myuuid},
 			'title': {'S': selection['title']},
@@ -28,15 +28,13 @@ export async function POST({ request }) {
 			'preview': {'S': selection['preview']},
 			'cover': {'S': selection['album']['cover_xl']}
 		},
-		TableName: "challenges"
 	};
 
-	dynamodb.putItem(params, function(err,data) {
+	dynamodb.putItem(params, function(err) {
 		if (err) {
 			console.log("Error: ", err);
 			return err;
 		}
-		else console.log("Item entered successfully:", data);
 	});
 
 	return json(myuuid);
