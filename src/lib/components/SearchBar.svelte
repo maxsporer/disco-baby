@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Button, Search } from "flowbite-svelte";
   import { search } from "$lib/apiCalls.js";
-  import { selectedTrack, hideDrawer } from "$lib/stores/SelectionStore";
+  import { selectedTrack, hideDrawer } from "$lib/stores/stores";
   import TrackDetail from "./TrackDetail.svelte";
   import type { DeezerTrack } from "$lib/types";
 
