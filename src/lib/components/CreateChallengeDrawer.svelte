@@ -1,9 +1,8 @@
 <script lang='ts'>
-  import { hideDrawer, selectedTrack } from '$lib/stores/SelectionStore';
+  import { hideDrawer, selectedTrack } from '$lib/stores/stores';
   import { Drawer, CloseButton } from 'flowbite-svelte';
   import { sineIn } from 'svelte/easing';
   import TrackDetail from './TrackDetail.svelte';
-  import CopiedNotification from './CopiedNotification.svelte';
 
   let hidden: boolean = true;
   let transitionParamsBottom = {
@@ -27,6 +26,5 @@
     class='absolute right-0 top-0 text-white hover:bg-gray-700'
     on:click={() => (hidden = true)}
   />
-  <TrackDetail track={$selectedTrack} onDrawer={true} />
-  <CopiedNotification />
+  <TrackDetail track={$selectedTrack} />
 </Drawer>
