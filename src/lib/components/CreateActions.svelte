@@ -10,6 +10,7 @@
 
   let waiting: boolean = false;
 </script>
+
 <div class='flex items-center justify-center gap-x-4'>
   <PlayButton src={track.preview} />
   {#if !waiting}
@@ -26,6 +27,6 @@
       <img src={add_song} alt=''/>
     </Button>
   {:else}
-    <Spinner />
+    <Spinner class='w-12 h-12'/>
   {/if}
 </div>
