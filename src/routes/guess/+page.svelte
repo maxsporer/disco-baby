@@ -1,9 +1,9 @@
-<script lang="ts">
-  import { Button } from "flowbite-svelte";
-  import { PlaySolid, PauseSolid } from "flowbite-svelte-icons";
+<script lang='ts'>
+  import PlayButton from '$lib/components/PlayButton.svelte';
+  import SearchBar from '$lib/components/SearchBar.svelte';
+  import type { ChallengeData } from '$lib/types';
 
-  export let data;
-  let audio: HTMLAudioElement;
+  export let data: ChallengeData;
 </script>
 
 <div>
@@ -11,9 +11,6 @@
 </div>
 
 {#if data.Item}
-  <div>
-    <audio src={data.Item.preview.S} bind:this={audio} />
-    <Button pill on:click={() => audio.play()}><PlaySolid /></Button>
-    <Button pill on:click={() => audio.pause()}><PauseSolid /></Button>
-  </div>
+  <SearchBar />
+  <PlayButton src={data.Item.preview.S} />
 {/if}
