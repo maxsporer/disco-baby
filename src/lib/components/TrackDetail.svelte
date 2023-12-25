@@ -3,18 +3,19 @@
   import Icon from '@iconify/svelte';
   
   export let track: DeezerTrack;
+  export let isMobile: boolean = false;
 </script>
 
-<div class='flex m-4 justify-between items-center'>
+<div class='{isMobile ? 'my-1' : 'my-2'} mx-4 flex justify-between items-center overflow-hidden'>
   <div class='flex items-center'>
-    <img class='w-14 h-14' src={track.album.cover} alt=''/>
-    <div class='pl-4 flex flex-col text-left text-xl justify-center overflow-hidden '>
+    <img class='{isMobile ? 'w-11 h-11' : 'w-14 h-14'}' src={track.album.cover} alt=''/>
+    <div class='{isMobile ? 'text-lg pl-2' : 'text-xl pl-4'} flex flex-col text-left justify-center overflow-hidden'>
       <div class='whitespace-nowrap'>
         {track.title}
       </div>
-      <div class='text-base text-gray-400 flex items-center'>
+      <div class='{isMobile ? 'text-sm' : 'text-base'} text-gray-400 flex items-center'>
         {#if track.explicit_lyrics}
-          <Icon icon='material-symbols:explicit' class='h-7 mr-1' />
+          <Icon icon='material-symbols:explicit' class='{isMobile ? 'h-5' : 'h-7'} mr-1' />
         {/if}
         <div> 
           {track.artist.name}

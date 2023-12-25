@@ -7,31 +7,37 @@
 
   let q: string;
   let results: DeezerTrack[];
+  let innerWidth = 0;
 
   function selectTrack(track: DeezerTrack) {
     hideDrawer.set(false);
     selectedTrack.set(track);
   }
+
+  async function submitSearch(q: string) {
+    results = await search(q);
+  }
+
 </script>
 
-<div class="flex p-4">
-  <Search size="lg" class="py-4" bind:value={q}>
-    <Button
-      class="!p-2.5 mr-2"
-      on:click={async () => {
-        results = await search(q);
-      }}
-    >
-      Search
-    </Button>
+<svelte:window bind:innerWidth />
+
+<form class="flex p-4" on:submit={() => submitSearch(q)}>
+  <Search size="lg" class="py-4 rounded-r-none" bind:value={q}>
   </Search>
-</div>
+  <Button
+    class="!p-2.5 rounded-l-none focus-within:ring-0 dark:focus-within:ring-0"
+    on:click={() => submitSearch(q)}
+  >
+    Search
+  </Button>
+</form>
 
 {#if results}
-  <div class="flex flex-col h-screen overflow-y-auto">
+  <div class="flex flex-col h-screen overflow-y-auto overflow-x-hidden">
     {#each results as track}
       <button on:click={() => selectTrack(track)}>
-        <TrackDetail track={track} />
+        <TrackDetail track={track} isMobile={innerWidth <= 430}/>
       </button>
     {/each}
   </div>
