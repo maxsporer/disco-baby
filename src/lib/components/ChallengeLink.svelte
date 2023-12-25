@@ -12,7 +12,7 @@
 </script>
 
 {#if $challengeId}
-  <div class='flex items-center justify-between my-2 mx-4 p-2 rounded outline outline-2 outline-white'>
+  <div class='flex items-center justify-between mt-4 mb-2 mx-4 p-2 rounded outline outline-2 outline-white'>
     <div>
       {challengeLink}
     </div>
@@ -31,11 +31,10 @@
       </div>
     </div>
   </div>
-
   <Toast
   bind:open
   class="absolute z-50 bottom-3 left-0 right-0 mx-auto w-fit"
   >
-  Copied to clipboard.
+    Copied to clipboard.
   </Toast>
 {/if}

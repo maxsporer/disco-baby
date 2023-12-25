@@ -36,10 +36,10 @@
   {#if isMobile}
     <TrackDetailLarge track={$selectedTrack} />
   {:else}
-    <TrackDetail track={$selectedTrack} isMobile={isMobile} />
+    <TrackDetail track={$selectedTrack} isMobile={isMobile} onDrawer={true} />
   {/if}
-  <CreateActions track={$selectedTrack} />
-  <div class='pt-2'>
-    <ChallengeLink />
-  </div>
+  {#if isMobile}
+    <CreateActions track={$selectedTrack} />
+  {/if}
+  <ChallengeLink />
 </Drawer>
