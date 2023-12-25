@@ -1,7 +1,12 @@
 import AWS from 'aws-sdk'
 import { AWS_PUBLIC_ACCESS_KEY, AWS_SECRET_ACCESS_KEY } from '$env/static/private';
+import { error } from '@sveltejs/kit';
 
-export async function load({ url }) {
+export async function load({ cookies, url }) {
+	if (!cookies.get('allowed')) {
+		throw error(403, 'Forbidden');
+	}
+
 	const id: string = url.searchParams.get('id') ?? '';
 
 	// Configure AWS SDK with your credentials and region
