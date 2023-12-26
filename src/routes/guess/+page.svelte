@@ -6,11 +6,13 @@
   export let data: ChallengeData;
 </script>
 
-<div>
-  Guess the song
-</div>
-
 {#if data.Item}
-  <SearchBar />
-  <PlayButton src={data.Item.preview.S} />
+  <div class='flex flex-col justify-between items-center h-screen'>
+    <div class='w-full h-[calc(100%-64px)] overflow-hidden'>
+      <SearchBar />
+    </div>
+    <div class='my-2 py-3 w-full border-t-2'>
+      <PlayButton src={data.Item.preview.S} showTime={true}/>
+    </div>
+  </div>
 {/if}
