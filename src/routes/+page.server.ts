@@ -1,9 +1,11 @@
 import { redirect, fail } from '@sveltejs/kit';
 import { PASSPHRASE } from '$env/static/private';
+import { postRedirectPath } from '$lib/stores/stores.js';
 
+type status = 307 | 300 | 301 | 302 | 303 | 304 | 305 | 306 | 308
 export function load({ cookies }) {
 	if (cookies.get('allowed')) {
-		throw redirect(307, '/create');
+		route(307);
 	}
 }
 
@@ -15,8 +17,7 @@ export const actions = {
 			cookies.set('allowed', 'true', {
 				path: '/'
 			});
-
-			throw redirect(303, '/create');
+			route(303);
 		}
 
 		return fail(403, {
@@ -24,3 +25,12 @@ export const actions = {
 		});
 	}
 };
+
+function route(code: status) {
+	let location: string = '';
+	postRedirectPath.subscribe((path) => {
+		location = path
+		postRedirectPath.set('');
+		throw redirect(code, location ? location : '/create');
+	});
+}
