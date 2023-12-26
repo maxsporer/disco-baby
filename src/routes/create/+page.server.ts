@@ -1,15 +1,9 @@
 import { redirect } from '@sveltejs/kit';
-import { error } from '@sveltejs/kit';
+import { postRedirectPath } from '$lib/stores/stores.js';
 
-export function load({ cookies }) {
+export function load({ cookies, url }) {
 	if (!cookies.get('allowed')) {
-		throw error(403, 'Forbidden');
+		postRedirectPath.set(url.pathname + url.search);
+		throw redirect(307, '/');
 	}
 }
-
-export const actions = {
-	redirect: ({ cookies }) => {
-		cookies.delete('allowed', { path: '/' });
-		throw redirect(303, '/');
-	},
-};

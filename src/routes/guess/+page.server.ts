@@ -1,10 +1,12 @@
 import AWS from 'aws-sdk'
 import { AWS_PUBLIC_ACCESS_KEY, AWS_SECRET_ACCESS_KEY } from '$env/static/private';
-import { error } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
+import { postRedirectPath } from '$lib/stores/stores.js';
 
 export async function load({ cookies, url }) {
 	if (!cookies.get('allowed')) {
-		throw error(403, 'Forbidden');
+		postRedirectPath.set(url.pathname + url.search);
+		throw redirect(307, '/');
 	}
 
 	const id: string = url.searchParams.get('id') ?? '';
