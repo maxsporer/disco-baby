@@ -7,7 +7,7 @@
 </script>
 
 {#if data.Item}
-  <div class='flex flex-col justify-between items-center h-screen'>
+  <div class='flex flex-col justify-between items-center h-dvh'>
     <div class='w-full h-[calc(100%-90px)] overflow-hidden'>
       <SearchBar />
     </div>
