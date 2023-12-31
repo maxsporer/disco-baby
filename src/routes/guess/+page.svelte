@@ -8,7 +8,7 @@
 
 {#if data.Item}
   <div class='flex flex-col justify-between items-center h-screen'>
-    <div class='w-full h-[calc(100%-64px)] overflow-hidden'>
+    <div class='w-full h-[calc(100%-90px)] overflow-hidden'>
       <SearchBar />
     </div>
     <div class='my-2 py-3 w-full border-t-2'>
