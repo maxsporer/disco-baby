@@ -3,5 +3,5 @@
   import CreateChallengeDrawer from '$lib/components/CreateChallengeDrawer.svelte';
 </script>
 
-<SearchBar />
+<SearchBar placeholder='Search to create challenge'/>
 <CreateChallengeDrawer />

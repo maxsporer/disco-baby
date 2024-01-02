@@ -5,6 +5,8 @@
   import TrackDetail from './TrackDetail.svelte';
   import type { DeezerTrack } from '$lib/types';
 
+  export let placeholder: string;
+
   let q: string;
   let results: DeezerTrack[];
   let innerWidth = 0;
@@ -24,7 +26,7 @@
 <svelte:window bind:innerWidth />
 
 <form class='flex p-4' on:submit={() => submitSearch(q)}>
-  <Search size='lg' class='py-4 rounded-r-none' bind:value={q}>
+  <Search size='lg' class='py-4 rounded-r-none' bind:value={q} placeholder={placeholder} >
   </Search>
   <Button
     class='!p-2.5 rounded-l-none focus-within:ring-0 dark:focus-within:ring-0'
