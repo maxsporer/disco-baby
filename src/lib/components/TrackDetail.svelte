@@ -10,7 +10,7 @@
 
 <div class='{isMobile ? 'my-1' : 'my-2'} mx-4 flex justify-between items-center overflow-hidden'>
   <div class='{onDrawer && 'w-[calc(100%-128px)]'} flex items-center'>
-    <img class='{isMobile ? 'w-11 h-11' : 'w-14 h-14'}' src={track.album.cover} alt=''/>
+    <img class='{isMobile ? 'w-11 h-11' : 'w-14 h-14'}' src={track.album.cover} alt='' />
     <div class='{isMobile ? 'text-lg pl-2' : 'text-xl pl-4'} flex flex-col text-left justify-center overflow-hidden'>
       <div class='whitespace-nowrap'>
         {track.title}

@@ -12,9 +12,10 @@ export function load({ cookies }) {
 export const actions = {
 	default: async ({ request, cookies }) => {
 		const data = await request.formData();
-
+		
 		if (data.get('passphrase') === PASSPHRASE) {
 			cookies.set('allowed', 'true', {
+				secure: false,
 				path: '/'
 			});
 			route(303);

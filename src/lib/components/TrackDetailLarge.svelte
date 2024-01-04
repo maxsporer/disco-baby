@@ -6,7 +6,7 @@
 
 <div class='flex flex-col'>
   <div class='flex justify-center m-3'>
-    <img class='w-full' src={track.album.cover} alt=''/>
+    <img class='w-full' src={track.album.cover} alt='' />
   </div>
   <div class='text-lg flex flex-col text-left justify-center overflow-hidden mx-3'>
     <div class='whitespace-nowrap'>

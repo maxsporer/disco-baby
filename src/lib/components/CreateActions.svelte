@@ -24,9 +24,9 @@
         }, 500);
       }}
     >
-      <img src={add_song} alt=''/>
+      <img src={add_song} alt='' />
     </Button>
   {:else}
-    <Spinner class='w-12 h-12'/>
+    <Spinner class='w-12 h-12' />
   {/if}
 </div>
