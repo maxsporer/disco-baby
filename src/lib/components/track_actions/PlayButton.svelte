@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang='ts'>
   import { Button } from 'flowbite-svelte';
   import { PlaySolid, PauseSolid } from 'flowbite-svelte-icons';
 

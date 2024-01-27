@@ -1,5 +1,5 @@
 export type DeezerTrack = {
-  id: number;
+  id: string;
   readable: boolean;
   title: string;
   title_short: string;
@@ -15,7 +15,7 @@ export type DeezerTrack = {
   artist: DeezerArtist;
   album: DeezerAlbum;
   type: string;
-}
+} | null;
 
 type DeezerArtist = {
   id: number;
@@ -47,6 +47,7 @@ export type ChallengeData = {
   Item: {
     artists: {S: string};
     cover: {S: string};
+    deezer_id: {S: string};
     id: {S: string};
     preview: {S: string};
     title: {S: string};

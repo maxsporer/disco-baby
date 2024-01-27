@@ -3,7 +3,8 @@
   import { Drawer, CloseButton } from 'flowbite-svelte';
   import { sineIn } from 'svelte/easing';
   import TrackDetail from './TrackDetail.svelte';
-  import CreateActions from './CreateActions.svelte';
+  import PlayButton from './track_actions/PlayButton.svelte';
+  import CreateButton from './track_actions/CreateButton.svelte';
   import ChallengeLink from './ChallengeLink.svelte';
   import TrackDetailLarge from './TrackDetailLarge.svelte';
 
@@ -36,10 +37,13 @@
   {#if isMobile}
     <TrackDetailLarge track={$selectedTrack} />
   {:else}
-    <TrackDetail track={$selectedTrack} isMobile={isMobile} onDrawer={true} />
+    <TrackDetail track={$selectedTrack} onDrawer={true} />
   {/if}
   {#if isMobile}
-    <CreateActions track={$selectedTrack} />
+  <div class='flex items-center justify-center gap-x-4'>
+    <PlayButton src={$selectedTrack.preview} />
+    <CreateButton track={$selectedTrack} />
+  </div>
   {/if}
   <ChallengeLink />
 </Drawer>

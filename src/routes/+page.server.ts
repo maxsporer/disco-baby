@@ -28,10 +28,7 @@ export const actions = {
 };
 
 function route(code: status) {
-	let location: string = '';
 	postRedirectPath.subscribe((path) => {
-		location = path
-		postRedirectPath.set('');
-		throw redirect(code, location ? location : '/create');
+		throw redirect(code, path ? path : '/create');
 	});
 }

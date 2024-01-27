@@ -1,4 +1,6 @@
-export async function create(selection: any) {
+import type { DeezerTrack } from "./types";
+
+export async function create(selection: DeezerTrack) {
   const response = await fetch('/api/create', {
     method: 'POST',
     body: JSON.stringify({ selection }),

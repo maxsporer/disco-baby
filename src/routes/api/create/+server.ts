@@ -23,6 +23,7 @@ export async function POST({ request }) {
 		TableName: "challenges",
 		Item: {
 			'id': {'S': myuuid},
+			'deezer_id': {'S': selection['id'].toString()},
 			'title': {'S': selection['title']},
 			'artist': {'S': selection['artist']['name']},
 			'preview': {'S': selection['preview']},
