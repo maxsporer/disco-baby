@@ -1,46 +1,49 @@
 <script lang='ts'>
-  import { Button, Search } from 'flowbite-svelte';
+  import { Search } from 'flowbite-svelte';
   import { search } from '$lib/apiCalls.js';
-  import { selectedTrack, hideDrawer, challengeId } from '$lib/stores/stores';
+  import { selectedTrack, hideDrawer, challengeId, queuedGuess } from '$lib/stores/stores';
   import TrackDetail from './TrackDetail.svelte';
   import type { DeezerTrack } from '$lib/types';
+  import { getContext } from 'svelte';
 
   export let placeholder: string;
 
   let q: string;
   let results: DeezerTrack[];
-  let innerWidth = 0;
+  let page = getContext('page');
 
   function selectTrack(track: DeezerTrack) {
     hideDrawer.set(false);
     selectedTrack.set(track);
-  }
-
-  async function submitSearch(q: string) {
     challengeId.set('');
-    results = await search(q);
   }
 
+  function queueGuess(track: DeezerTrack) {
+    queuedGuess.set(track);
+  };
+
+  $: if (q) setTimeout(async () => results = await search(q), 150);
 </script>
 
-<svelte:window bind:innerWidth />
 
-<form class='flex p-4' on:submit={() => submitSearch(q)}>
-  <Search size='lg' class='py-4 rounded-r-none' bind:value={q} placeholder={placeholder} />
-  <Button
-    class='!p-2.5 rounded-l-none focus-within:ring-0 dark:focus-within:ring-0'
-    on:click={() => submitSearch(q)}
-  >
-    Search
-  </Button>
-</form>
+<div class='p-4 gap-x-4 flex flex-col h-full'>
+  <Search
+    size='lg'
+    class='py-4 rounded-sm'
+    bind:value={q}
+    placeholder={placeholder}
+  />
+  {#if results}
+    <div class='flex flex-col overflow-y-auto overflow-x-hidden'>
+      {#each results as track}
+        <button on:click={() => {
+          if (page === 'guess') queueGuess(track);
+          else selectTrack(track);
+        }}>
+          <TrackDetail track={track} />
+        </button>
+      {/each}
+    </div>
+  {/if}
+</div>
 
-{#if results}
-  <div class='flex flex-col overflow-y-auto overflow-x-hidden h-[calc(100%-88px)]'>
-    {#each results as track}
-      <button on:click={() => selectTrack(track)}>
-        <TrackDetail track={track} isMobile={innerWidth <= 430} />
-      </button>
-    {/each}
-  </div>
-{/if}

@@ -1,7 +1,8 @@
 import AWS from 'aws-sdk'
 import { AWS_PUBLIC_ACCESS_KEY, AWS_SECRET_ACCESS_KEY } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
-import { postRedirectPath } from '$lib/stores/stores.js';
+import { postRedirectPath, challengeTrack } from '$lib/stores/stores.js';
+import type { ChallengeData } from '$lib/types.js';
 
 export async function load({ cookies, url }) {
 	if (!cookies.get('allowed')) {
