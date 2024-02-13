@@ -3,5 +3,5 @@
   import SearchBar from '$lib/components/SearchBar.svelte';
 </script>
 
-<SearchBar placeholder='Search to create challenge' />
+<SearchBar placeholder='search song to create challenge' />
 <CreateChallengeDrawer />
