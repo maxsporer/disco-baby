@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang='ts'>
   import { LinkSolid } from 'flowbite-svelte-icons';
   import { challengeId } from '$lib/stores/stores';
   import { Toast } from 'flowbite-svelte';
@@ -39,13 +39,13 @@
   </div>
   <Toast
     bind:open
-    class="absolute z-50 bottom-3 left-0 right-0 mx-auto w-fit"
+    class='absolute z-50 bottom-3 left-0 right-0 mx-auto w-fit'
   >
     Copied to clipboard.
   </Toast>
 {/if}
 
-<style lang="scss">
+<style lang='scss'>
   .Challenge {
     grid-template-columns: minmax(0, 1fr) auto;
 
