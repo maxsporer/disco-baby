@@ -3,13 +3,15 @@
   import Header from '$lib/components/Header.svelte';
   import SearchBar from '$lib/components/SearchBar.svelte';
   import PlayButton from '$lib/components/track_actions/PlayButton.svelte';
-  import { currentGuess, queuedGuess } from '$lib/stores/stores';
+  import { currentGuess, lastChallenge, queuedGuess } from '$lib/stores/stores';
   import type { ChallengeData } from '$lib/types';
   import { setContext } from 'svelte';
 
   export let data: ChallengeData;
 
   setContext('page', 'guess');
+
+  if (data.Item) lastChallenge.set('/guess?id=' + data.Item.id.S);
 </script>
 
 <Header

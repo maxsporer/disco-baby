@@ -7,3 +7,4 @@ export const challengeId = writable<string>();
 export const postRedirectPath = writable<string>('');
 export const queuedGuess = writable<DeezerTrack>(null);
 export const currentGuess = writable<DeezerTrack>(null);
+export const lastChallenge = writable<string>();
