@@ -1,40 +1,49 @@
 <script lang='ts'>
-  import { LinkSolid } from 'flowbite-svelte-icons';
   import { challengeId } from '$lib/stores/stores';
-  import { Toast } from 'flowbite-svelte';
+  import { Button, Toast } from 'flowbite-svelte';
   import { page } from '$app/stores';
   import Icon from '@iconify/svelte';
 
   let open: boolean = false;
-  let challengeLink: string;
+  let challengeLink: string = '';
 
   $: if (open) setTimeout(() => open = false, 2500);
-  $: challengeLink = `${$page.url.origin}/guess?id=${$challengeId}`;
+  $: if (!challengeLink && $challengeId) challengeLink = `${$page.url.origin}/guess?id=${$challengeId}`;
 </script>
 
 {#if $challengeId}
-  <div class='Challenge grid grid-flow-col grid-cols-2 mt-4 mb-2 mx-4 p-2 rounded outline outline-2 outline-white'>
-    <div class='Challenge-link'>
-      {challengeLink}
-    </div>
-    <div class='flex items-center gap-x-2 ml-2 mr-1 pl-2 border-l-2'>
-      <a href={challengeLink} class='hover:text-primary-600'>
-        <Icon icon='tabler:external-link' class='w-6 h-6' />
-      </a>
-      <div class='hover:text-primary-600'>
-        <LinkSolid
-          on:click={() => {
+  <div class='Challenge grid grid-flow-col grid-cols-1 grid-rows-1 mt-4 mb-2 p-2 align-middle'>
+    <div class='Challenge-link flex'>
+      <input
+        type='text'
+        class="bg-gray-100 text-gray-900 text-md select-auto rounded-md block p-2.5 h-10 grow min-w-0"
+        bind:value={challengeLink}
+      >
+      <Button
+        on:click={async () => {
+          if (navigator.share === undefined) {
             navigator.clipboard.writeText(challengeLink);
             open = true;
-          }}
-          class='outline-0'
-        />
-      </div>
-      {#if navigator.share}
-        <button class='hover:text-primary-600' on:click={() => {navigator.share({url: challengeLink})}}>
-          <Icon icon='tabler:share-2' class='h-6 w-6' />
-        </button>
-      {/if}
+          } else {
+            await navigator.share({url: challengeLink});
+          }
+        }}
+        class='h-10 w-10 sm:w-fit text-sm flex px-4 ml-1 p-0 sm:p-2.5 focus-within:ring-0 dark:focus-within:ring-0'
+      >
+        {#if navigator.share === undefined}
+          <span class='hidden sm:block mr-2 text-sm'>
+            Copy
+          </span>
+        {/if}
+        {#if navigator.share === undefined}
+          <Icon class='w-5 h-5' icon="lucide:copy" />
+        {:else}
+          <Icon class='w-7 h-7 sm:w-6 sm:h-6' icon="tabler:share-2" />
+        {/if}
+      </Button>
+      <Button href={challengeLink} class='min-w-10 h-10 p-0 bg-gray-100 ml-1 focus-within:ring-0 dark:focus-within:ring-0 text-primary-700 hover:text-gray-100'>
+        <Icon icon='octicon:arrow-up-right-16' class='w-6 h-6' />
+      </Button>
     </div>
   </div>
   <Toast

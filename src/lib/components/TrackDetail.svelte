@@ -14,7 +14,7 @@
 
 <svelte:window bind:innerWidth />
 
-<div class='{className} mt-2 mx-2 flex justify-between items-center overflow-hidden'>
+<div class='{className} mt-2 mx-2 mr-4 flex justify-between items-center overflow-hidden'>
   <div class='{onDrawer && 'w-[calc(100%-128px)]'} flex items-center'>
     <img class='{isMobile ? 'w-11 h-11' : 'w-14 h-14'}' src={track?.album.cover} alt='' />
     <div class='{isMobile ? 'text-lg pl-2' : 'text-xl pl-4'} flex flex-col text-left justify-center overflow-hidden'>

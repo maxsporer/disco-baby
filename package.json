@@ -28,7 +28,8 @@
     "tslib": "^2.4.1",
     "typescript": "^5.0.0",
     "unplugin-icons": "^0.18.1",
-    "vite": "^4.4.2"
+    "vite": "^4.4.2",
+    "vite-plugin-mkcert": "^1.17.5"
   },
   "type": "module",
   "dependencies": {
