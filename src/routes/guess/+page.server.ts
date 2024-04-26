@@ -7,7 +7,7 @@ import type { ChallengeData } from '$lib/types.js';
 export async function load({ cookies, url }) {
 	if (!cookies.get('allowed')) {
 		postRedirectPath.set(url.pathname + url.search);
-		throw redirect(307, '/');
+		redirect(307, '/');
 	}
 
 	const id: string = url.searchParams.get('id') ?? '';

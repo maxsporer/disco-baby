@@ -4,6 +4,6 @@ import { postRedirectPath } from '$lib/stores/stores.js';
 export function load({ cookies, url }) {
 	if (!cookies.get('allowed')) {
 		postRedirectPath.set(url.pathname + url.search);
-		throw redirect(307, '/');
+		redirect(307, '/');
 	}
 }

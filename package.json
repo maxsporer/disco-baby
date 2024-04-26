@@ -12,9 +12,10 @@
   "devDependencies": {
     "@iconify/json": "^2.2.161",
     "@iconify/svelte": "^3.1.6",
-    "@sveltejs/adapter-auto": "^2.0.0",
+    "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/adapter-node": "^5.0.1",
-    "@sveltejs/kit": "^1.27.4",
+    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@types/uuid": "^9.0.7",
     "autoprefixer": "^10.4.16",
     "flowbite": "^2.2.1",
@@ -29,7 +30,7 @@
     "tslib": "^2.4.1",
     "typescript": "^5.0.0",
     "unplugin-icons": "^0.18.1",
-    "vite": "^4.4.2",
+    "vite": "^5.0.0",
     "vite-plugin-mkcert": "^1.17.5"
   },
   "type": "module",

@@ -29,6 +29,6 @@ export const actions = {
 
 function route(code: status) {
 	postRedirectPath.subscribe((path) => {
-		throw redirect(code, path ? path : '/create');
+		redirect(code, path ? path : '/create');
 	});
 }
