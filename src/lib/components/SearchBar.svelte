@@ -1,7 +1,8 @@
 <script lang='ts'>
   import { Search } from 'flowbite-svelte';
   import { search } from '$lib/apiCalls.js';
-  import { selectedTrack, hideDrawer, challengeId, queuedGuess } from '$lib/stores/stores';
+  import { hideDrawer, challengeId, queuedGuess } from '$lib/stores/stores';
+  import { selectedTrack, setActiveToSelectedTrack } from '$lib/stores/audioStore';
   import TrackDetail from './TrackDetail.svelte';
   import type { DeezerTrack } from '$lib/types';
   import { getContext } from 'svelte';
@@ -15,6 +16,7 @@
   function selectTrack(track: DeezerTrack) {
     hideDrawer.set(false);
     selectedTrack.set(track);
+    setActiveToSelectedTrack();
     challengeId.set('');
   }
 
@@ -37,7 +39,7 @@
     <div class='flex flex-col overflow-y-auto overflow-x-hidden'>
       {#each results as track}
         <button on:click={() => {
-          if (page === 'guess') queueGuess(track);
+          if (page === 'guess') queueGuess(track); 
           else selectTrack(track);
         }}>
           <TrackDetail track={track} />
@@ -46,4 +48,3 @@
     </div>
   {/if}
 </div>
-

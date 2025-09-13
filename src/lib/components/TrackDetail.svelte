@@ -3,6 +3,7 @@
   import Icon from '@iconify/svelte';
   import PlayButton from './track_actions/PlayButton.svelte';
   import CreateButton from './track_actions/CreateButton.svelte';
+  import { selectedTrack, setActiveToSelectedTrack } from '$lib/stores/audioStore';
 
   export let track: DeezerTrack;
   export let onDrawer: boolean = false;
@@ -10,6 +11,11 @@
 
   let innerWidth: number = 0;
   let isMobile: boolean = innerWidth <= 430;
+
+  function handlePlayClick() {
+    selectedTrack.set(track);
+    setActiveToSelectedTrack();
+  }
 </script>
 
 <svelte:window bind:innerWidth />
@@ -33,8 +39,9 @@
   </div>
   {#if onDrawer}
     <div class='flex items-center justify-center gap-x-4'>
-      <!-- TODO: fix type error  -->
-      <PlayButton src={track?.preview} />
+      <div on:click={handlePlayClick} on:keydown={(e) => e.key === 'Enter' && handlePlayClick()} role="button" tabindex="0">
+        <PlayButton />
+      </div>
       <CreateButton track={track} />
     </div>
   {/if}

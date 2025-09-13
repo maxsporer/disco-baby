@@ -1,5 +1,6 @@
 <script lang='ts'>
-  import { hideDrawer, selectedTrack } from '$lib/stores/stores';
+  import { hideDrawer } from '$lib/stores/stores';
+  import { selectedTrack } from '$lib/stores/audioStore';
   import { Drawer, CloseButton } from 'flowbite-svelte';
   import { sineIn } from 'svelte/easing';
   import TrackDetail from './TrackDetail.svelte';
@@ -40,10 +41,10 @@
     <TrackDetail track={$selectedTrack} onDrawer={true} />
   {/if}
   {#if isMobile}
-  <div class='flex items-center justify-center gap-x-4'>
-    <PlayButton src={$selectedTrack.preview} />
-    <CreateButton track={$selectedTrack} />
-  </div>
+    <div class='flex items-center justify-center gap-x-4'>
+      <PlayButton />
+      <CreateButton track={$selectedTrack} />
+    </div>
   {/if}
   <ChallengeLink />
 </Drawer>

@@ -2,7 +2,6 @@
   import type { DeezerTrack } from '$lib/types';
   
   export let track: DeezerTrack;
-  console.log(track);
 </script>
 
 <div class='flex flex-col'>
