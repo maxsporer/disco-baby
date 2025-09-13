@@ -33,7 +33,7 @@
     {#if isPlaying}
       <PauseSolid />
     {:else}
-      <PlaySolid />
+      <PlaySolid class='ml-[3.5px]'/>
     {/if}
   </Button>
   <div>

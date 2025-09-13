@@ -2,18 +2,19 @@
   import type { DeezerTrack } from '$lib/types';
   
   export let track: DeezerTrack;
+  console.log(track);
 </script>
 
 <div class='flex flex-col'>
   <div class='flex justify-center m-3'>
-    <img class='w-full' src={track.album.cover} alt='' />
+    <img class='w-full' src={track?.album.cover_big} alt={`${track?.album.title} Album Cover`} />
   </div>
   <div class='text-lg flex flex-col text-left justify-center overflow-hidden mx-3'>
     <div class='whitespace-nowrap'>
-      {track.title}
+      {track?.title}
     </div>
     <div class='text-sm text-gray-400 flex items-center'>
-      {track.artist.name}
+      {track?.artist.name}
     </div>
   </div>
 </div>

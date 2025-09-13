@@ -33,6 +33,7 @@
   </div>
   {#if onDrawer}
     <div class='flex items-center justify-center gap-x-4'>
+      <!-- TODO: fix type error  -->
       <PlayButton src={track?.preview} />
       <CreateButton track={track} />
     </div>
