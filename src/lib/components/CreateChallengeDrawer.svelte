@@ -55,12 +55,6 @@
 
     node.addEventListener("keydown", handleKey);
 
-    // Optional: move focus to first element when drawer opens
-    if (!hidden) {
-      focusable = getFocusable(node);
-      focusable[0]?.focus();
-    }
-
     return {
       destroy() {
         node.removeEventListener("keydown", handleKey);
@@ -76,7 +70,7 @@
   transitionType='fly'
   transitionParams={transitionParamsBottom}
   bind:hidden={hidden}
-  class='w-full flex flex-col bg-zinc-800 mx-auto w-full max-w-screen-sm {isMobile ? 'pt-6' : 'border-slate-300 mb-2 border-2 rounded'}'
+  class='w-full flex flex-col bg-zinc-800 mx-auto w-full max-w-screen-sm pr-6 {isMobile ? 'pt-6' : 'border-slate-300 mb-2 border-2 rounded'}'
 >
   <div use:focusTrap>
     <CloseButton

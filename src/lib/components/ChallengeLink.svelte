@@ -19,6 +19,9 @@
         class="bg-gray-100 text-gray-900 text-md select-auto rounded-md block p-2.5 h-10 grow min-w-0"
         bind:value={challengeLink}
       >
+      <Button href={challengeLink} class='min-w-10 h-10 p-0 bg-gray-100 ml-1 focus-within:ring-0 dark:focus-within:ring-0 text-primary-700 hover:text-gray-100'>
+        <Icon icon='tabler:external-link' class='w-6 h-6' />
+      </Button>
       <Button
         on:click={async () => {
           if (navigator.share === undefined) {
@@ -38,11 +41,8 @@
         {#if navigator.share === undefined}
           <Icon class='w-5 h-5' icon="lucide:copy" />
         {:else}
-          <Icon class='w-7 h-7 sm:w-6 sm:h-6' icon="tabler:share-2" />
+          <Icon class='w-6 h-6' icon="tabler:share-2" />
         {/if}
-      </Button>
-      <Button href={challengeLink} class='min-w-10 h-10 p-0 bg-gray-100 ml-1 focus-within:ring-0 dark:focus-within:ring-0 text-primary-700 hover:text-gray-100'>
-        <Icon icon='octicon:arrow-up-right-16' class='w-6 h-6' />
       </Button>
     </div>
   </div>
