@@ -19,15 +19,21 @@
       <div>
         disco-baby
       </div>
-      <div class='flex'>
-        {#if page === 'guess'}
-          <a href='/create' class='mr-2 flex'>
+      <div class='flex gap-x-2.5'>
+        {#if page === 'home'}
+          <a href='/create' class='flex'>
+            <button class='w-6 h-6'>
+              <img src={add_song} alt='' />
+            </button>
+          </a>
+        {:else if page === 'guess'}
+          <a href='/create' class='flex'>
             <button class='w-6 h-6'>
               <img src={add_song} alt='' />
             </button>
           </a>
         {:else if $lastChallenge}
-          <a href={$lastChallenge} class='mr-2'>
+          <a href={$lastChallenge}>
             <Icon class='w-6 h-6' icon="ri:arrow-go-back-fill" />
           </a>
         {/if}
@@ -37,6 +43,9 @@
         >
           <QuestionCircleSolid class='w-6 h-6' />
         </button>
+        <a href='/home'>
+          <Icon class='w-6 h-6' icon="material-symbols:home" />
+        </a>
       </div>
     </div>
     </div>

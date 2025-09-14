@@ -1,8 +1,7 @@
 <script lang='ts'>
-  import TrackDetail from "./TrackDetail.svelte";
   import { allGuesses, queuedGuess, addGuess, formatGuessHistory, remainingGuesses } from "$lib/stores/guessStore";
-  import { challengeAudioSrc, setActiveToChallengeAudio, audioElement, isPlaying } from "$lib/stores/audioStore";
-  import { pauseAudio, playAudio } from "$lib/audioControls";
+  import { setActiveToChallengeAudio } from "$lib/stores/audioStore";
+  import { playAudio } from "$lib/audioControls";
   import type { ChallengeData, DeezerTrack } from "$lib/types";
   import { Button, Toast } from "flowbite-svelte";
   import { ArrowRightSolid } from "flowbite-svelte-icons";
@@ -38,13 +37,6 @@
     setTimeout(() => {
       playAudio();
     }, 500);
-  }
-
-  // Debug: Print IDs for comparison
-  $: if ($allGuesses.length > 0) {
-    console.log('Most recent guess trackId:', mostRecentGuess?.trackId);
-    console.log('Challenge deezer_id:', challengeTrack?.Item?.deezer_id?.S);
-    console.log('IDs match:', mostRecentGuess?.trackId === challengeTrack?.Item?.deezer_id?.S);
   }
 </script>
 
