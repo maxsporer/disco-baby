@@ -14,6 +14,7 @@
   let q: string;
   let results: DeezerTrack[];
   let page = getContext('page');
+  let searchTimeout: number;
 
   // Check if game is over (won or no guesses left)
   $: gameOver = page === 'guess' && challengeTrack && (
@@ -36,10 +37,19 @@
     q = ''; // Clear search input
   };
 
-  $: if (q && !gameOver) {
-    setTimeout(async () => results = await search(q), 150);
-  } else {
-    results = [];
+  $: {
+    // Clear any existing timeout
+    if (searchTimeout) {
+      clearTimeout(searchTimeout);
+    }
+    
+    if (q && q.trim() && !gameOver) {
+      searchTimeout = setTimeout(async () => {
+        results = await search(q);
+      }, 150);
+    } else {
+      results = [];
+    }
   }
 </script>
 
