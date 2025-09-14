@@ -41,7 +41,7 @@
     <TrackDetail track={$selectedTrack} onDrawer={true} />
   {/if}
   {#if isMobile}
-    <div class='flex items-center justify-center gap-x-4'>
+    <div class='flex items-center justify-center gap-x-4 mt-2'>
       <PlayButton />
       <CreateButton track={$selectedTrack} />
     </div>
