@@ -80,7 +80,10 @@
         <div class='border border-primary-300 p-2 rounded bg-gray-700 mb-2 flex items-center gap-3'>
           <div class='flex-1'>
             <div class='font-medium'>Nice job!</div>
-            <div class='text-sm text-gray-200'>Keep it up, proud of you.</div>
+            <div class='text-sm text-gray-200 flex items-center gap-1'>
+              Copy or share your guesses!
+              <Icon icon="lucide:arrow-right" class="w-4 h-4" />
+            </div>
           </div>
           <div class='flex gap-2'>
             <Button

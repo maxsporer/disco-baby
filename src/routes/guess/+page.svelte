@@ -28,6 +28,7 @@
   <Header
     title='How to Play'
     subtitle='Listen to the song and search for what you think it is. Press your guess and then the arrow to submit your guess!'
+    challengeTrack={data}
   />
   {#if data.Item}
     <div class='flex-1 flex flex-col justify-between min-h-0 mx-auto w-full max-w-screen-sm'>
