@@ -12,7 +12,7 @@
 </script>
 
 {#if $challengeId}
-  <div class='Challenge grid grid-flow-col grid-cols-1 grid-rows-1 mt-4 mb-2 p-2 align-middle'>
+  <div class='Challenge grid grid-flow-col grid-cols-1 grid-rows-1 p-2 align-middle w-full'>
     <div class='Challenge-link flex'>
       <input
         type='text'

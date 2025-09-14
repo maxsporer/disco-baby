@@ -4,6 +4,7 @@
   import PlayButton from './track_actions/PlayButton.svelte';
   import CreateButton from './track_actions/CreateButton.svelte';
   import { selectedTrack, setActiveToSelectedTrack } from '$lib/stores/audioStore';
+  import { challengeId } from '$lib/stores/stores';
 
   export let track: DeezerTrack;
   export let onDrawer: boolean = false;
@@ -37,7 +38,7 @@
       </div>
     </div>
   </div>
-  {#if onDrawer}
+  {#if onDrawer && !$challengeId}
     <div class='flex items-center justify-center gap-x-4'>
       <div on:click={handlePlayClick} on:keydown={(e) => e.key === 'Enter' && handlePlayClick()} role="button" tabindex="0">
         <PlayButton />
