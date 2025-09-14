@@ -29,7 +29,7 @@
   transitionType='fly'
   transitionParams={transitionParamsBottom}
   bind:hidden={hidden}
-  class='w-full flex flex-col bg-zinc-800 {isMobile && 'pt-6'}'
+  class='w-full flex flex-col bg-zinc-800 mx-auto w-full max-w-screen-sm {isMobile && 'pt-6'}'
 >
   <CloseButton
     class='absolute right-0 top-0 text-white hover:bg-gray-700'

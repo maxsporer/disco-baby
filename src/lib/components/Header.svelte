@@ -14,40 +14,42 @@
 </script>
 
 <div class='text-center'>
-  <div class='flex justify-between items-center text-2xl lg:text-3xl lg:pt-4 border-b-2 border-b-gray-300 mx-4 pb-2 pt-2'>
-    <div>
-      disco-baby
+  <div class='border-b-2 border-b-gray-300'>
+    <div class='flex justify-between items-center text-2xl lg:text-3xl lg:pt-4 py-2 px-4 mx-auto w-full max-w-screen-sm'>
+      <div>
+        disco-baby
+      </div>
+      <div class='flex'>
+        {#if page === 'guess'}
+          <a href='/create' class='mr-2 flex'>
+            <button class='w-6 h-6'>
+              <img src={add_song} alt='' />
+            </button>
+          </a>
+        {:else if $lastChallenge}
+          <a href={$lastChallenge} class='mr-2'>
+            <Icon class='w-6 h-6' icon="ri:arrow-go-back-fill" />
+          </a>
+        {/if}
+        <button
+          type='button'
+          on:click={() => (modelOpen = true)}
+        >
+          <QuestionCircleSolid class='w-6 h-6' />
+        </button>
+      </div>
     </div>
-    <div class='flex'>
-      {#if page === 'guess'}
-        <a href='/create' class='mr-2 flex'>
-          <button class='w-6 h-6'>
-            <img src={add_song} alt='' />
-          </button>
-        </a>
-      {:else if $lastChallenge}
-        <a href={$lastChallenge} class='mr-2'>
-          <Icon class='w-6 h-6' icon="ri:arrow-go-back-fill" />
-        </a>
-      {/if}
-      <button
-        type='button'
-        on:click={() => (modelOpen = true)}
-      >
-        <QuestionCircleSolid class='w-6 h-6' />
-      </button>
     </div>
-  </div>
 </div>
 <Modal
   class='mt-10 md:w-[75%]'
-  dialogClass='fixed top-0 start-0 end-0 h-full md:inset-0 z-50 w-full p-4 flex'
+  dialogClass='fixed top-0 start-0 end-0 h-full md:inset-0 z-50 w-full p-2 flex'
   placement={'top-center'}
   title={title}
   bind:open={modelOpen}
   autoclose outsideclose
 >
-  <div class='-m-2'>
+  <div>
     {subtitle}
   </div>
 </Modal>

@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import { Button } from 'flowbite-svelte';
+  import { Button, Spinner } from 'flowbite-svelte';
   import { PlaySolid, PauseSolid } from 'flowbite-svelte-icons';
   import { 
     audioElement, 
@@ -10,14 +10,37 @@
     currentTimeFormatted, 
     durationFormatted 
   } from '$lib/stores/audioStore';
+  import { handlePlayPause } from '$lib/audioControls';
 
   export let showTime: boolean = false;
 
   let audio: HTMLAudioElement;
+  let audioReady = false;
 
   // Update store when audio element is ready
   $: if (audio) {
     audioElement.set(audio);
+  }
+
+  // Reset audioReady when source changes
+  $: if ($activeAudioSrc && audio) {
+    audioReady = false;
+    // Force audio to load
+    audio.load();
+  }
+
+  // Handle audio loading events
+  function handleAudioLoad() {
+    audioReady = true;
+  }
+
+  function handleAudioError(event: Event) {
+    audioReady = false;
+    console.error('Audio failed to load:', event);
+  }
+
+  function handleAudioEnded() {
+    isPlaying.set(false);
   }
 
   // Update time and duration in store
@@ -29,21 +52,17 @@
       currentTime.set(audio.currentTime);
     }
   }, 100);
-
-  function handlePlayPause() {
-    if (audio) {
-      if ($isPlaying) {
-        audio.pause();
-        isPlaying.set(false);
-      } else {
-        audio.play();
-        isPlaying.set(true);
-      }
-    }
-  }
 </script>
 
-<audio src={$activeAudioSrc} bind:this={audio} />
+<audio 
+  src={$activeAudioSrc} 
+  bind:this={audio}
+  preload="metadata"
+  on:loadeddata={handleAudioLoad}
+  on:canplaythrough={handleAudioLoad}
+  on:error={handleAudioError}
+  on:ended={handleAudioEnded}
+/>
 
 <div class='flex items-center justify-evenly'>
   <div>
@@ -51,16 +70,22 @@
       {$currentTimeFormatted || '0:00'}
     {/if}
   </div>
-  <Button
-    class='w-12 h-12 rounded-full focus-within:ring-0 dark:focus-within:ring-0'
-    on:click={handlePlayPause}
-  >
-    {#if $isPlaying}
-      <PauseSolid />
-    {:else}
-      <PlaySolid class='ml-[3.5px]'/>
-    {/if}
-  </Button>
+  
+  {#if !$activeAudioSrc || !audioReady}
+    <Spinner class='w-12 h-12' />
+  {:else}
+    <Button
+      class='w-12 h-12 rounded-full focus-within:ring-0 dark:focus-within:ring-0'
+      on:click={() => audioReady && handlePlayPause()}
+    >
+      {#if $isPlaying}
+        <PauseSolid />
+      {:else}
+        <PlaySolid class='ml-[3.5px]'/>
+      {/if}
+    </Button>
+  {/if}
+  
   <div>
     {#if showTime}
       {$durationFormatted}

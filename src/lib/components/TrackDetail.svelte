@@ -20,11 +20,11 @@
 
 <svelte:window bind:innerWidth />
 
-<div class='{className} mt-2 mx-2 mr-4 flex justify-between items-center overflow-hidden'>
-  <div class='{onDrawer && 'w-[calc(100%-128px)]'} flex items-center'>
+<div class='{className} p-2 flex justify-between items-center overflow-hidden'>
+  <div class='{onDrawer && 'w-[calc(100%-128px)]'} flex items-center w-full'>
     <img class='{isMobile ? 'w-11 h-11' : 'w-14 h-14'}' src={track?.album.cover} alt='' />
     <div class='{isMobile ? 'text-lg pl-2' : 'text-xl pl-4'} flex flex-col text-left justify-center overflow-hidden'>
-      <div class='whitespace-nowrap'>
+      <div class='whitespace-nowrap w-full truncate overflow-hidden text-ellipsis'>
         {track?.title}
       </div>
       <div class='{isMobile ? 'text-sm' : 'text-base'} text-gray-400 flex items-center'>

@@ -46,6 +46,8 @@ type DeezerAlbum = {
 export type ChallengeData = {
   Item: {
     artists: {S: string};
+    artist: {S: string};
+    artist_id: {S: string};
     cover: {S: string};
     deezer_id: {S: string};
     id: {S: string};

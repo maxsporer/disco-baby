@@ -26,7 +26,7 @@ export async function POST({ request }) {
 			'deezer_id': {'S': selection['id'].toString()},
 			'title': {'S': selection['title']},
 			'artist': {'S': selection['artist']['name']},
-			'preview': {'S': selection['preview']},
+			'artist_id': {'S': selection['artist']['id'].toString()},
 			'cover': {'S': selection['album']['cover_xl']}
 		},
 	};
