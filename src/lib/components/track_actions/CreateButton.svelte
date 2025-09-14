@@ -20,10 +20,10 @@
 
 {#if !waiting}
   <Button
-    class='w-12 h-12 p-2.5 rounded-full focus-within:ring-0 dark:focus-within:ring-0'
+    class='w-12 h-12 p-2.5 rounded-full'
     on:click={() => createTrack(track)}
   >
-    <img src={add_song} alt='' />
+    <img src={add_song} alt='' tabindex="-1" />
   </Button>
 {:else}
   <Spinner class='w-12 h-12' />

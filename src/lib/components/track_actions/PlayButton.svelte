@@ -13,6 +13,7 @@
   import { handlePlayPause } from '$lib/audioControls';
 
   export let showTime: boolean = false;
+  export let onCustomClick: (() => void) | undefined = undefined;
 
   let audio: HTMLAudioElement;
   let audioReady = false;
@@ -75,13 +76,20 @@
     <Spinner class='w-12 h-12' />
   {:else}
     <Button
-      class='w-12 h-12 rounded-full focus-within:ring-0 dark:focus-within:ring-0'
-      on:click={() => audioReady && handlePlayPause()}
+      class='w-12 h-12 rounded-full'
+      on:click={() => {
+        if (audioReady) {
+          if (onCustomClick) {
+            onCustomClick();
+          }
+          handlePlayPause();
+        }
+      }}
     >
       {#if $isPlaying}
-        <PauseSolid />
+        <PauseSolid tabindex="-1" />
       {:else}
-        <PlaySolid class='ml-[3.5px]'/>
+        <PlaySolid class='ml-[3.5px]' tabindex="-1" />
       {/if}
     </Button>
   {/if}

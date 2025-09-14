@@ -39,17 +39,13 @@
       </div>
       <div class='flex gap-x-2.5'>
         {#if page === 'home'}
-          <a href='/create' class='flex'>
-            <button class='w-6 h-6'>
-              <img src={add_song} alt='' />
-            </button>
+          <a href='/create' class='flex w-6 h-6'>
+            <img src={add_song} alt='' />
           </a>
         {:else if page === 'guess'}
           <div class='relative'>
-            <a href='/create' class='flex' id="create-challenge-btn">
-              <button class='w-6 h-6'>
-                <img src={add_song} alt='' />
-              </button>
+            <a href='/create' class='flex w-6 h-6' id="create-challenge-btn">
+              <img src={add_song} alt='' />
             </a>
             {#if gameCompleted && showTooltip}
               <div class='absolute top-8 left-1/2 transform -translate-x-[70%] bg-primary-600 text-white text-sm font-medium px-3 py-2 rounded-lg shadow-lg z-10 whitespace-nowrap'>
@@ -68,17 +64,18 @@
             {/if}
           </div>
         {:else if $lastChallenge}
-          <a href={$lastChallenge}>
+          <a href={$lastChallenge} class='w-6 h-6'>
             <Icon class='w-6 h-6' icon="ri:arrow-go-back-fill" />
           </a>
         {/if}
         <button
           type='button'
           on:click={() => (modelOpen = true)}
+          class='w-6 h-6'
         >
-          <QuestionCircleSolid class='w-6 h-6' />
+          <QuestionCircleSolid class='w-6 h-6' tabindex="-1" />
         </button>
-        <a href='/home'>
+        <a href='/home' class='w-6 h-6'>
           <Icon class='w-6 h-6' icon="material-symbols:home" />
         </a>
       </div>
