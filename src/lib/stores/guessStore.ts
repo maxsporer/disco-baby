@@ -45,21 +45,22 @@ export function resetGuesses(): void {
 
 // Format guess history for sharing
 export function formatGuessHistory(guesses: GuessData[], challengeTrack: any): string {
-  const header = "🎵 Disco Baby - My Score 🎵\n\n";
+  const header = "🎵 My Disco Baby Score 🎵\n\n";
   
   const guessLines = guesses.map((guess, index) => {
     const guessNumber = `${index + 1}. `;
-    const trackInfo = `${guess.trackTitle} by ${guess.artistName}`;
     
-    // Determine status icon
-    let status = "❌";
+    // Determine status
+    let status = "";
     if (guess.trackId.toString() === challengeTrack?.Item?.deezer_id?.S) {
-      status = "✅";
+      status = "✅ Correct";
     } else if (guess.artistId.toString() === challengeTrack?.Item?.artist_id?.S) {
-      status = "🟡";
+      status = "🟡 Correct artist";
+    } else {
+      status = "❌ Incorrect";
     }
     
-    return `${guessNumber}${trackInfo} ${status}`;
+    return `${guessNumber}${status}`;
   }).join('\n');
   
   const attempts = `\nSolved in ${guesses.length}/${maxGuesses} attempts!`;

@@ -31,19 +31,22 @@ export async function load({ cookies, url }) {
 	try {
 		const data = await dynamodb.getItem(params).promise();
 		
+		// Check if no item was found or if the item is missing required fields
+		if (!data.Item || !data.Item.deezer_id || !data.Item.deezer_id.S) {
+			redirect(307, '/error?message=Challenge not found');
+		}
+		
 		// If we found the challenge, fetch fresh preview URL from Deezer
-		if (data.Item && data.Item.deezer_id && data.Item.deezer_id.S) {
-			const deezerTrack = await fetchDeezerTrack(data.Item.deezer_id.S);
-			if (deezerTrack && deezerTrack.preview) {
-				// Add the fresh preview URL to the response
-				data.Item.preview = { S: deezerTrack.preview };
-			}
+		const deezerTrack = await fetchDeezerTrack(data.Item.deezer_id.S);
+		if (deezerTrack && deezerTrack.preview) {
+			// Add the fresh preview URL to the response
+			data.Item.preview = { S: deezerTrack.preview };
 		}
 		
 		return data;
 	} catch (error) {
 		console.log("Error", error);
-		throw error;
+		redirect(307, '/error?message=Database error');
 	}
 }
 
