@@ -9,29 +9,46 @@
 
   $: if (open) setTimeout(() => open = false, 2500);
   $: if (!challengeLink && $challengeId) challengeLink = `${$page.url.origin}/guess?id=${$challengeId}`;
+
+  async function copyToClipboard() {
+    navigator.clipboard.writeText(challengeLink);
+    open = true;
+  }
 </script>
 
 {#if $challengeId}
   <div class='Challenge grid grid-flow-col grid-cols-1 grid-rows-1 p-2 align-middle w-full'>
     <div class='Challenge-link flex'>
-      <input
-        type='text'
-        class="bg-gray-100 text-gray-900 text-md select-auto rounded-md block p-2.5 h-10 grow min-w-0"
-        bind:value={challengeLink}
-      >
-      <Button href={challengeLink} class='min-w-10 h-10 p-0 bg-gray-100 ml-1 focus-within:ring-0 dark:focus-within:ring-0 text-primary-700 hover:text-gray-100'>
+      <div class='relative flex-1'>
+        <input
+          type='text'
+          class="bg-gray-100 text-gray-900 text-md select-auto rounded-md block p-2.5 pr-10 h-10 w-full min-w-0"
+          bind:value={challengeLink}
+          readonly
+        >
+        <button
+          type='button'
+          class='absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-500 hover:text-gray-700'
+          data-tutorial-step="copy-link"
+          on:click={copyToClipboard}
+          aria-label="Copy challenge link"
+        >
+          <Icon icon='lucide:copy' class='w-4 h-4' />
+        </button>
+      </div>
+      <Button href={challengeLink} class='min-w-10 h-10 p-0 bg-gray-100 ml-1 focus-within:ring-0 dark:focus-within:ring-0 text-primary-700 hover:text-gray-100' data-tutorial-step="go-to-link">
         <Icon icon='tabler:external-link' class='w-6 h-6' />
       </Button>
       <Button
         on:click={async () => {
           if (navigator.share === undefined) {
-            navigator.clipboard.writeText(challengeLink);
-            open = true;
+            copyToClipboard();
           } else {
             await navigator.share({url: challengeLink});
           }
         }}
         class='h-10 w-10 sm:w-fit text-sm flex px-4 ml-1 p-0 sm:p-2.5 focus-within:ring-0 dark:focus-within:ring-0'
+        data-tutorial-step="share-link"
       >
         {#if navigator.share === undefined}
           <span class='hidden sm:block mr-2 text-sm'>
@@ -48,7 +65,7 @@
   </div>
   <Toast
     bind:open
-    class='absolute z-50 bottom-3 left-0 right-0 mx-auto w-fit'
+    class='absolute z-50 top-2 left-0 right-0 mx-auto w-fit'
   >
     Copied to clipboard.
   </Toast>
