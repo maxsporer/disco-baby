@@ -29,18 +29,37 @@ export async function load({ cookies, url }) {
 	};
 
 	try {
-		const data = await dynamodb.getItem(params).promise();
+		// Retry logic for eventual consistency
+		let data: AWS.DynamoDB.GetItemOutput | undefined;
+		let retries = 0;
+		const maxRetries = 3;
 		
-		// Check if no item was found or if the item is missing required fields
-		if (!data.Item || !data.Item.deezer_id || !data.Item.deezer_id.S) {
-			redirect(307, '/error?message=Challenge not found');
+		while (retries < maxRetries) {
+			data = await dynamodb.getItem(params).promise();
+			
+			// Check if no item was found or if the item is missing required fields
+			if (!data.Item || !data.Item.deezer_id || !data.Item.deezer_id.S) {
+				if (retries < maxRetries - 1) {
+					// Wait before retrying (exponential backoff)
+					await new Promise(resolve => setTimeout(resolve, Math.pow(2, retries) * 1000));
+					retries++;
+					continue;
+				} else {
+					redirect(307, '/error?message=Challenge not found');
+				}
+			} else {
+				break; // Found the item
+			}
 		}
 		
-		// If we found the challenge, fetch fresh preview URL from Deezer
-		const deezerTrack = await fetchDeezerTrack(data.Item.deezer_id.S);
-		if (deezerTrack && deezerTrack.preview) {
-			// Add the fresh preview URL to the response
-			data.Item.preview = { S: deezerTrack.preview };
+		// At this point, data.Item is guaranteed to exist and have deezer_id
+		if (data && data.Item && data.Item.deezer_id && data.Item.deezer_id.S) {
+			// If we found the challenge, fetch fresh preview URL from Deezer
+			const deezerTrack = await fetchDeezerTrack(data.Item.deezer_id.S);
+			if (deezerTrack && deezerTrack.preview) {
+				// Add the fresh preview URL to the response
+				data.Item.preview = { S: deezerTrack.preview };
+			}
 		}
 		
 		return data;

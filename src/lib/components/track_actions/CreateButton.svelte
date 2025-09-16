@@ -10,11 +10,21 @@
   let waiting: boolean = false;
 
   async function createTrack(track: DeezerTrack) {
-    waiting = !waiting;
-    await setTimeout(async () => {
-      create(track).then((id) => challengeId.set(id));
-      waiting = !waiting;
-    }, 500);
+    waiting = true;
+    try {
+      const result = await create(track);
+      if (result.error) {
+        console.error('Failed to create challenge:', result.error);
+        // Handle error - could show a toast or alert
+      } else {
+        challengeId.set(result);
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      // Handle network error
+    } finally {
+      waiting = false;
+    }
   }
 </script>
 

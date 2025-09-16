@@ -4,7 +4,14 @@ import {v4 as uuidv4} from 'uuid';
 import { json } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
-export async function POST({ request }) {
+export async function POST({ request, setHeaders }) {
+  // Prevent caching of this endpoint
+  setHeaders({
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0'
+  });
+
   const { selection } = await request.json();
 
   // Configure AWS SDK with your credentials and region
@@ -31,12 +38,11 @@ export async function POST({ request }) {
 		},
 	};
 
-	dynamodb.putItem(params, function(err) {
-		if (err) {
-			console.log("Error: ", err);
-			return err;
-		}
-	});
-
-	return json(myuuid);
+	try {
+		await dynamodb.putItem(params).promise();
+		return json(myuuid);
+	} catch (err) {
+		console.log("Error: ", err);
+		return json({ error: 'Failed to create challenge' }, { status: 500 });
+	}
 }
