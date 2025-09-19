@@ -21,7 +21,7 @@
 	<div class='flex flex-col {isSm ? 'mx-8' : 'mx-[30%]'} gap-y-2 mt-[160px] justify-center'>
 		<div class='flex relative'>
 			<Input 
-				class='rounded-none pr-20' 
+				class='rounded-none pr-20 passphrase-input' 
 				type={showPassword ? 'text' : 'password'} 
 				name='passphrase' 
 				autocomplete='off' 
